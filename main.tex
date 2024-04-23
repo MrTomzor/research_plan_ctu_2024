@@ -1,0 +1,689 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+\UseRawInputEncoding
+% \documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+\documentclass{article}  % Comment this line out if you need a4paper
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+
+% \IEEEoverridecommandlockouts                              % This command is only needed if 
+                                                          % you want to use the \thanks command
+
+% \overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+%In case you encounter the following error:
+%Error 1010 The PDF file may be corrupt (unable to open PDF file) OR
+%Error 1000 An error occurred while parsing a contents stream. Unable to analyze the PDF file.
+%This is a known problem with pdfLaTeX conversion filter. The file cannot be opened with acrobat reader
+%Please use one of the alternatives below to circumvent this error by uncommenting one or the other
+%\pdfobjcompresslevel=0
+%\pdfminorversion=4
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+% \usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{graphicx}
+\usepackage{adjustbox}
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+% \usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+% \usepackage{cite}
+
+% \usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amsmath, bm} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{amssymb}
+\usepackage{pdfpages}
+\usepackage{subcaption}
+\usepackage{siunitx}
+% \usepackage[dvipsnames]{xcolor}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage[]{hyperref}
+% \hypersetup{
+%   colorlinks,
+%   citecolor=black,
+%   filecolor=black,
+%   linkcolor=blue,
+%   urlcolor=blue,
+%   pdfauthor={},
+%   pdfsubject={},
+%   pdftitle={}
+% }
+\usepackage{cite}
+
+% REVISIONS
+% \newcommand{\vk}[1]{{\hypersetup{allcolors=blue}{\color{blue} {#1}}}}
+% \newcommand{\vkcaption}[1]{{\color{blue} {#1}}}
+\newcommand{\todo}[1]{{\hypersetup{allcolors=red}{\color{red} {#1}}}}
+\newcommand{\todocaption}[1]{{\color{red} {#1}}}
+
+% \newcommand{\vk}[1]{#1}
+% \newcommand{\vkcaption}[1]{#1}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newcommand{\simname}{\text{HARDNAV}}
+
+% \newcommand{\real}{\mathbb{R}}
+
+\title{\LARGE \bf
+% Novel Benchmark for Navigation and Active Place Recognition in Confusing and Changing Environments
+% Monocular-RGB Online 3D Sphere-Based Occupancy Mapping}
+% Sphere-Based Occupancy Mapping for Fast and Safe Navigation and Exploration on Monocular-Inertial UAV Systems}
+% Monocular-Inertial UAV Exploration of 3D Environments Using Lightweight Sphere-Based Occupancy Mapping}
+% Monocular Sphere-Based Occupancy Mapping and Large-Scale Safety-Aware Exploration on a UAV}
+Sphere-Based Occupancy Mapping using Sparse Monocular SLAM for Robust Large-Scale 3D Exploration on Inexpensive UAVs}
+% PolySphereMap - Occupancy Mapping using Sparse Monocular SLAM for Large-Scale 3D Exploration on Inexpensive UAVs}
+% PolySphereMap - Mapping and Exploring Large-Scale 3D Environments using a Monocular Camera on a UAV}
+% Sphere-Based Occupancy Mapping using Monocular Vision for Navigation and Exploration}
+% Sphere-Based Occupancy Mapping using Monocular Vision for Rapid Safety-Aware Planning}
+% Sphere-Based Occupancy Mapping using Sparse Pointclouds from Monocular Cameras}
+
+
+% ORCID %%{
+\usepackage{scalerel}
+\usepackage{tikz}
+\usetikzlibrary{svg.path}
+\definecolor{orcidlogocol}{HTML}{A6CE39}
+\tikzset{
+  orcidlogo/.pic={
+    \fill[orcidlogocol] svg{M256,128c0,70.7-57.3,128-128,128C57.3,256,0,198.7,0,128C0,57.3,57.3,0,128,0C198.7,0,256,57.3,256,128z};
+    \fill[white] svg{M86.3,186.2H70.9V79.1h15.4v48.4V186.2z}
+    svg{M108.9,79.1h41.6c39.6,0,57,28.3,57,53.6c0,27.5-21.5,53.6-56.8,53.6h-41.8V79.1z M124.3,172.4h24.5c34.9,0,42.9-26.5,42.9-39.7c0-21.5-13.7-39.7-43.7-39.7h-23.7V172.4z}
+    svg{M88.7,56.8c0,5.5-4.5,10.1-10.1,10.1c-5.6,0-10.1-4.6-10.1-10.1c0-5.6,4.5-10.1,10.1-10.1C84.2,46.7,88.7,51.3,88.7,56.8z};
+  }
+}
+
+\newcommand\orcidicon[1]{\href{https://orcid.org/#1}{\mbox{\scalerel*{
+        \begin{tikzpicture}[yscale=-1,transform shape]
+          \pic{orcidlogo};
+        \end{tikzpicture}
+}{|}}}}
+% %%}
+
+% \author{Tomas Musil, Matej Petrlik, Martin Saska% <-this % stops a space
+% % \thanks{*This work was not supported by any organization}% <-this % stops a space
+% % \thanks{$^{1}$Albert Author is with Faculty of Electrical Engineering, Mathematics and Computer Science,
+% %         University of Twente, 7500 AE Enschede, The Netherlands
+% %         {\tt\small albert.author@papercept.net}}%
+% % \thanks{$^{2}$Bernard D. Researcheris with the Department of Electrical Engineering, Wright State University,
+% %         Dayton, OH 45435, USA
+% %         {\tt\small b.d.researcher@ieee.org}}%
+% }
+\author{
+  Tom\'{a}\v{s} Musil$^{\orcidicon{0000-0002-9421-6544}}$, 
+  Mat\v{e}j Petrl\'{i}k$^{\orcidicon{0000-0002-5337-9558}}$,
+  Martin Saska$^{\orcidicon{0000-0001-7106-3816}}$%
+
+  \thanks{%
+    Authors are with the Department of Cybernetics, Faculty of Electrical Engineering, Czech Technical University in Prague, 166 36 Prague 6, {\tt\footnotesize\{\href{mailto:musilto8@fel.cvut.cz}{musilto8}|\href{mailto:matej.petrlik@fel.cvut.cz}{matej.petrlik}|\href{mailto:martin.saska@fel.cvut.cz}{martin.saska}\}@fel.cvut.cz}
+}
+  \thanks{Digital Object Identifier (DOI): see top of this page.}
+}
+
+
+\begin{document}
+
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  We present a novel approach to describing 3D occupancy, using only a monocular camera and pose estimates.
+  Our main contribution is representing an environment by a graph of intersecting free-space spheres and a set of triangulated visual keypoints with remembered measurement uncertainty, which is fundamentally different from grid-based occupancy maps. 
+  We present a method of building this representation in real-time, using only sparse 3D point data obtained from monocular SLAM by inscribing spheres inside the estimated visible free-space polyhedron formed by the visual keypoints and the camera position.
+  We further describe an exploration system that uses the advantages brought by the novel representation to overcome some of the challenges of monocular vision-based UAV autonomy and demonstrate
+large-scale autonomous exploration in unstructured indoor/outdoor 3D environments, using only a single monocular camera and an IMU onboard an inexpensive UAV in simulation and in the real world.
+  We open-source the code for our methods to provide occupancy mapping and exploration capabilities to any UAV with a monocular camera and available pose estimation.
+
+Code--- %\href{
+\href{TODO}{TODO}
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION}
+% Darpaa \cite{darpa_cerberus_wins}
+% To actively map and navigate unknown environments, fully autonomous UAVs need to build and continuously update some internal representation of the environment, which allows them to find paths to different goals, to know which areas have or haven't been observed, and where the UAV should move to observe new areas.
+% The main question addressed in this paper is -- "How to actively construct such a representation using only a single camera and inexpensive metric-scale sensors, such as an inertial-measurement-unit (IMU)?"
+% The most commonly used type of such representation is an occupancy grid \cite{occupancy_moravec}.
+
+The autonomous UAV systems with the greatest capabilities documented in recent literature \cite{darpa_cerberus_wins, beneath} usually construct an occupancy grid \cite{occupancy_moravec}, commonly the efficient octree-based implementation of OctoMap \cite{octomap}, and use it as the base representation for planning, exploration or constructing higher-level spatial abstractions \cite{spheremap}.
+However, building a detailed occupancy grid requires dense pointclouds of range measurements due to the nature of occupancy grid updates --- which is to cast rays towards the measurement points and update the occupancy of traversed cells.
+% TODO - check if all
+Thus, state-of-the-art exploration and navigation UAV systems have been constrained to expensive, heavy or limited-range sensors such as LiDARs, depth cameras or stereo-camera pairs, which can provide these dense point clouds.
+
+% To the best of the authors' knowledge, \todo{there is currently no known way of building a 3D occupancy grid (or a representation that would offer the same capabilities) on robots equipped with only a single monocular camera in combination with inexpensive sensors that can recover the metric scale, such as an IMU or a global-positioning system.}
+Building an occupancy representation for exploration using only a monocular camera for depth sensing is challenging for many reasons, and has so far been demonstrated only in small-scale indoor environments.
+However, being able to build a representation that would allow safe and rapid exploration and navigation on-board UAVs with such inexpensive sensors would unlock many potential applications, such as swarms of disposable UAVs for search and rescue missions.
+In addition, cameras are useful for object recognition and other types of vision-based perception beneficial for autonomous UAVs, and thus 
+% it makes sense to have them equipped on many UAV applications already.
+they are already equipped on UAVs in most real-world applications.
+Furthermore, a single moving camera can provide rough distance estimates on very distant objects when using the inverse depth parametrization \cite{inverse_depth}, far beyond the approx. 50m range of LiDARs.
+
+\begin{figure}[!t]
+  % \includegraphics[width=8.5cm]{fig/smap2.png}
+  % \includegraphics[width=8.5cm]{fig/explor_forest2.png}
+  % \includegraphics[width=8.5cm]{fig/intro_poly.png}
+    \adjincludegraphics[width=8.5cm, trim={{0.4\width} {0.05\height} {0.05\width} {0.1\height}}, clip=true]{fig/intro_poly.png}
+  \centering
+  \caption{Visualization of the proposed map representation and how it is updated. The green polyhedron is an estimate of currently visible free space and is formed by the visible triangulated keypoints and the camera's position (axes). The mapped spheres (green), obstacle points (red) and frontier points (purple) are updated by the polyhedron and visible keypoints, as described in Sec. \ref{sec:map_building}}
+  \label{fig:smap_intro}
+\end{figure}
+
+In this paper, we present a novel approach to occupancy mapping that takes in a sparse pointcloud of visual keypoints tracked by monocular SLAM (already a necessary part of many vision-based UAV systems), and instead of traditionally casting rays through a grid and updating its cells, we construct a polyhedron of approximate visible free space at each frame, inscribe spheres of free space inside that polyhedron, and connect them together to form a graph of intersecting spheres that allows for fast and safety-aware planning.
+We further show how our mapping method enables autonomous exploration and navigation in large-scale outdoor environments on a UAV using only a single camera and IMU as its sensors, which, to the authors' best knowledge, has not yet been achieved in literature.
+% We open-source the code so that anyone with a UAV equipped with a single camera and a source of odometry can easily enable exploration and rapid, safety-aware navigation.
+% We open-source the code make a detailed analysis .
+% , and unlocks a wide variety potential low-cost UAV applications.
+
+% The vast majority of autonomous navigation and exploration research in the real world, such as in the DARPA SubT Challenge \cite{darpa_cerberus_wins}, has so far been focused on robots equipped with costly sensors that provide dense range data, such as LiDARs \cite{beneath}, depth cameras [TODO] or stereo camera pairs \cite{explor_stereo}.
+% Even though single vision sensors are much cheaper, existing approaches for using them for online map building and autonomous navigation on UAVs is still severely limited.
+% Most navigation approaches for UAVs with only a single camera and no range sensors are reactive behaviors \cite{avoidance_mono1}, or make strong assumptions about environmental structure \cite{corridors_mono_nav_2009}.
+
+\subsection{Related Works -- Spatial Representations}
+% The environment representation similar to our previous work \cite{spheremap} -- in \cite{spheremap}, we also built a graph of intersecting free-space spheres, but 
+In robotic exploration, the vast majority of approaches use a grid-based representation of occupied, unknown and free space, either in the form of an euclidean signed distance field (ESDF) \cite{voxblox} or an occupancy grid \cite{occupancy_moravec, octomap}.
+A grid-based representation, while being the basis for a substantial amount of robotic path planning and higher-level spatial abstraction methods \cite{topomap, skeletons, spheremap}, has several drawbacks for usage on UAVs without dense range sensors in varying-scale environments.
+
+Firstly, both ESDFs and occupancy grids are most commonly updated by raycasting towards measured obstacle points.
+% This becomes problematic when the available measured points are very sparse, such as points tracked by sparse monocular SLAM.
+Some works overcome this limitation to some degree -- 
+in \cite{from_monoslam_to_explo}, the authors take points from semi-dense monocular SLAM and raycast towards them to build an OctoMap \cite{octomap} occupancy grid, but only demonstrate their local exploration approach built on top of this mapping pipeline to work inside a single room.
+
+Compared to \cite{from_monoslam_to_explo}, the authors of \cite{los_maps} use sparse monocular SLAM, they also cast rays towards the measured points to build an occupancy grid, and show exploration on a UAV across multiple rooms.
+They set the occupancy grid cell size to be 0.5m, which is relatively large compared to the UAV size. 
+Such rough voxel size cannot represent the distance to obstacles in high resolution, and if the grid is misaligned with the building, narrow passages can be represented as non-traversible.
+% and in [ROOM-DENSEDEPTH], the authors essentially perform dense pixel-based estimation with known poses from sparse SLAM, which works in well-illuminated rooms but may have problems in larger-scale or texture-poor environments.
+% Second, even though memory-efficient octree-based representations of 3D grids are available, most notably the OctoMap library \cite{octomap}, a fundamental problem of grids is that the smallest-voxel size must be set by the user.
+This is the second fundamental problem of grid-based representations -- the smallest-voxel size must be set by the user.
+If this is set as too large, narrow passages will not be captured in the map, and if it is too small, the map will need large amounts of raycasts to set all the cells' occupancy values, which is computationally expensive.
+
+% In our previous work \cite{spheremap}, we have shown how a graph of intersecting spheres can be built out of an occupancy grid, and that this representation allows path planning that has explicit information about distance to obstacles, in addition to being orders of magnitude faster than on an occupancy grid.
+In our previous work \cite{spheremap}, we have shown that representing free space by a graph of intersecting spheres can efficiently describe both large-space while keeping detailed information in narrow spaces, in additon to allowing orders of magnitude faster path planning than grid-based representations.
+% In \cite{spheremap}, we also demonstrated that this representation allows path planning that has explicit information about distance to obstacles, in addition to allowing orders of magnitude faster path planning than on an occupancy grid.
+In this paper, we represent free space using spheres as well, but with two major differences: 
+% In this paper, we represent the free space using spheres as well, but also add the obstacle points into the map and use them for constraining the sphere radii, but with \todo{two major differences 
+
+\begin{itemize}
+    % \item now \textit{we do not need to build the occupancy grid as an intermediate step}, which frees up significant computational resources, and \textit{we construct the map using sparse point-clouds from monocular SLAM}, which are problematic to use for occupancy grids.
+  \item In this paper, we build the graph of spheres \textit{directly} out of the sparse 3D pointclouds and pose estimates obtained from monocular SLAM, without needing to build an intermediate occupancy grid before computing the sphere radii as in \cite{spheremap}, which frees up significant computational resources.
+% In addition, there is no current documented way to build an occupancy grid using sparse point clouds, although this could also be interesting to research.
+% TODO-CHECK
+  \item Unlike \cite{spheremap}, which only represents free space, the representation presented in this paper contains obstacle points corresponding to triangulated visual keypoints with remembered measurement distance, which plays an important role when updating the map at different measurement distances (see Sec. \ref{sec:distance-based}). 
+        % to overcome the challenge of incorrect measurements at larger distances.
+\end{itemize}
+
+% Traditional methods of obtaining distance measurements with an RGB camera is using visual SLAM algorithms, such as TODO-CITE.
+% Using only a single camera though, one can build a map of an environment this way, but with the scale of the map being unmeasurable, and thus the map is unusable for path planning for a robot.
+% % If a metric sensor, such as an 
+% Adding a sensor that can recover the metric scale -- such as another RGB camera or an inertial measurement unit (IMU) -- allows one to run visual/visual-inertial SLAM algorithms, and thus obtain a map that is scaled correctly.
+% However, any map built using visual/visual-inertial SLAM is usually very \textit{sparse}, compared to maps built using dense depth sensors, such as LiDARs or RGB-D cameras, which makes it difficult to use such map for any kind of autonomy.
+
+% An important concept popularized for SLAM is using estimating and representing inverse depth of visual keypoints instead of simply the euclidean distance.
+% This allows the system to represent and optimize points that are very far away, even points in infinity.
+% Knowing that there are points \textit{very} far away in some direction is an essential piece of information, as it allows a UAV to know that it is safe to fly in that direction for large distances.
+% However, implementing such reasoning has not yet been researched much in literature.
+
+% Compared to the methods above, our inverse depth measurement module is essentially a simplified version of FLAME \cite{flame} with several changes that make it more suitable for our method of occupancy mapping.
+% We also offer an alternative usage mode, where the system uses the triangulated points coming directly from the currently deployed visual/visual-inertial SLAM, but as discussed further in TODO-REF, these are usually only very near the robot and do not fully use the long range of visual sensors.
+% % TODO - rgb to visual sensors, cuz can use greyscale!
+
+% \subsection{Related Works -- Vision-Based Autonomy}
+\subsection{Related Works -- Vision-Based Exploration}
+
+Vision-based UAV autonomous exploration has so far, by far not reached the levels of autonomy as when using dense depth sensors, and remains a challenge, as documented in recent surveys \cite{drones_survey}, but some progress has been made.
+% A large amount of research has been conducted on reactive behaviors, for example 
+% Most examples of vision-based autonomy are only reactive behaviors, or systems that make strong assumptions on the environmental structure, such as in \cite{corridors_mono_nav_2009} where the authors assume corridor-like environments.
+% Existing research has mostly focused only on reactive behaviors, or systems that make strong assumptions on the environmental structure, such as in \cite{corridors_mono_nav_2009} where the authors assume corridor-like environments.
+% For vision-based autonomous mapping and exploration in unstructured environments, some progress has been made.
+In \cite{explor_stereo}, the authors presented the first ever vision-based UAV system that can explore and build a map (a 3D occupancy grid) on a UAV equipped with stereo cameras and also a supporting downward-facing optical flow sensor for better motion estimation.
+The authors used dense pointclouds coming from the stereo cameras for building an OctoMap \cite{octomap} occupancy representation in the same way as with depth data from an RGB-D camera or LiDAR, which allowed them to use similar exploration techniques as on systems with those sensors.
+% With only a monocular camera however, building a reliable map for exploration and navigation is even more challenging, as monocular SLAM provides measurement points only on textured areas, which leads to point clouds with large gaps on textureless areas, and using deep learning for monocular estimation is still not ready for deployment on autonomous UAV in general environments.
+% as \todo{obtaining correct depth estimates is harder than with stereo cameras.}
+% Most notable is the work of \cite{from_monoslam_to_explo}, where the authors build an occupancy grid map on top of points coming from semi-dense monocular SLAM, but only show exploration in a single room, and with offboard processing.
+
+For UAVs equipped with a monocular camera, to the authors' best knowledge, all the existing works have demonstrated autonomous 3D mapping and exploration on a UAV only indoor and at the scale of a single room \cite{from_monoslam_to_explo, cnn_explo_singleroom} or a few rooms \cite{los_maps, simon2023mononav}.
+% It can be said that the main challenge here is that the majority of robotics methods is based on first building an occupancy grid using dense data measurements from a depth camera, LiDAR or stereo cameras, but obtaining such data from a monocular camera is difficult.
+% It can be said that the main challenge here is that the majority of robotics methods is based on first building an occupancy grid using dense data measurements from a depth camera, LiDAR or stereo cameras, but obtaining such data from a monocular camera is difficult.
+% The discussed approaches either accept that the data from visual SLAM is very sparse, or they use deep-learning-based depth estimation to obtain dense data.
+Monocular SLAM, both sparse and dense, cannot produce measurement points on textureless areas, and the existing approaches either accept that the data from visual SLAM can be very sparse, or they use deep-learning-based depth estimation to obtain dense data.
+
+% Some of these works build an occupancy grid in the end -- 
+% The authors of \cite{from_monoslam_to_explo, los_maps} use the sparse points obtained from visual SLAM for raycasting-based occupancy grid construction, and their exploration approach works around the problems that arise with this sort of mapping.
+The authors of \cite{from_monoslam_to_explo, los_maps} argue against using frontier-based methods \cite{paper_frontier_grandpa}, due to the facts that on textureless areas, no points will ever be generated and thus those frontiers would not be uncovered by a monocular camera.
+The authors have presented alternative exploration approaches, but have only shown them to work in small-scale environments.
+% In our exploration approach, thanks to not using raycasting in our proposed mapping pipeline and also blocking explored viewpoints, we show that frontier-based exploration is possible, and achieves large-scale outdoor exploration even with monocular cameras.
+In our exploration approach, thanks to not using raycasting in our proposed mapping pipeline and also blocking explored viewpoints, we show that frontier-based exploration is possible and assures global coverage of the explored environments.
+% The authors argue against frontier-based 
+% The main problem with the characteristics of these SLAM-based approaches is that 
+% The authors use 
+
+In a different approach, the authors of \cite{simon2023mononav, cnn_explo_singleroom} use deep-learning-based single image depth estimation to obtain dense point clouds from a monocular camera, essentially turning it into a depth camera.
+However, using learning-based monocular depth estimation models brings additional problems, most important for fully autonomous UAVs being not providing real-time performance and the problem of domain independence, as discussed in recent surveys \cite{deep_mono_depth_2021, deep_mono_depth_2019}, in addition to the higher cost and weight of a UAV with a GPU.
+% which forces the UAV to carry a GPU, which significantly raises the cost of the system and lowers the flight time, and in addition, the works do not address the problem of domain transfer of learning-based monocular depth estimation models, whi
+% The exception is \cite{corridors_mono_nav_2009}, where the authors do not build an occupancy grid, but represent the world as "corridors", which limits that system to only corridor-like environments.
+
+% In \cite{corridors_mono_nav_2009}, the authors presented a system for monocular UAV navigation and demonstrated autonomous flight and map-building in an office corridor.
+% Some works have demonstrated outdoor navigation using a monocular camera, b
+
+% Most of these works use points obtained from visual SLAM and treat them as pointclouds coming from a depth sensor, and build an occupancy grid out of this data.
+
+% Another approach to single-camera autonomy uses deep-learning methods for monocular depth estimation and then applies well-researched methods for mapping, exploration and planning as on systems with a depth camera.
+% % Some results have been achieved with this method, but they have also been mostly on obstacle avoidance, and not building large-scale navigable maps [TODO].
+% Such approach has been shown for example in \cite{simon2023mononav}, but there the authors only show successful map building and navigation in small-scale indoor environments \todo{and}.
+% Additionally, learning-based monocular depth estimation models still have many unsolved challenges, most imporant for fully autonomous UAVs not providing real-time performance and domain independence, as discussed in recent surveys \cite{deep_mono_depth_2021, deep_mono_depth_2019}.
+% Furthermore, any learning-based approach requires a GPU on-board the UAV, which can strongly increase the system cost and reduce flight time due to weight and power requirements.
+
+Compared to the above mentioned approaches, we demonstrate that our approach achieves exploration and navigation in 3D using a monocular camera and an IMU in outdoor, large-scale environments, with all of the computations running on-board the UAV, without requiring a GPU.
+% other than that it has a reasonable amount of texture, but our approach can handle large textureless areas as well.
+
+\subsection{Contributions}
+To move towards enabling robust vision-based autonomous navigation in unknown, unstructured 3D environments for inexpensive UAVs, our paper brings the following contributions:
+\begin{enumerate}
+    % \item A method of building an occupancy map consisting of spheres and points using only sparse visual points and odometry as inputs
+  \item A novel occupancy mapping approach, which constructs a sphere-based occupancy map using sparse pointclouds obtained from monocular SLAM as the only depth information.
+  % \item A novel occupancy mapping approach, which constructs a sphere-based occupancy representation that offers the same information as an occupancy grid, but is more suitable for path planning, using odometry and sparse pointclouds obtained from monocular SLAM.
+    % , easily extendable with dense point cloud data from depth sensors as well.
+    % -- an iteration of our previous work \cite{spheremap}, which now however does not require the costly construction of an occupancy grid
+    % \item A monocular-visual inverse-depth estimator which tracks and triangulates visual keypoints, using metrically scaled odometry (visual-inertial, GPS, or others), while being robust to odometry errors by estimating a purely visual translations trajectory and scaling it to match the input odometry.
+    \item A system that demonstrates large-scale 3D outdoor exploration on a UAV equipped with only a monocular camera and IMU as its sensors, enabled by the proposed occupancy mapping method, 
+      % along with important changes to traditional exploration approaches necessary for when using a monocular camera, 
+      experimentally verified in simulation and in the real world.
+      % on a UAV equipped with only a single camera and IMU as primary sensors, in simulation and in the real world.
+    \item Open-sourced code for the novel occupancy mapping method, along with path-planning and exploration functionalities and example simulation scripts
+      % for effortlessly enabling affordable UAV autonomy.
+    % \item We opensource the code for building the SphereMap, using odometry and a sparse 3D pointcloud (or points from the proposed inverse depth estimator) as input, along with example code for using the new occupancy map for path planning, as a ROS package
+\end{enumerate}
+
+\section{Sphere-Based Occupancy Mapping}
+% The most common way of occupancy mapping today is to use a voxel-based representations, such as OctoMap \cite{octomap}, and then set the voxel occupancy probabilities by raycasting through the map, according to distance measurements from depth sensors.
+% This is a general-purpose representation, but not much suitable for fast path planning.
+We propose to represent free space by a graph of intersecting spheres, similarly to our previous work \cite{spheremap}, and obstacles by points corresponding to triangulated visual keypoints from visual SLAM.
+% (or, in the future, input points from dense range sensors).
+% In this section, we explain how such map can be built using only sparse 3D point data obtained from sparse visual SLAM.
+In this section, we explain how such map can be built directly from the outputs of visual SLAM, without needing any intermediate occupancy grid computation, and how the sparsity and high depth uncertainty of the input pointclouds is handled. 
+% and how it is useful for UAV autonomy.
+% We propose an alternative, more lightweight approach to estimating free space over large distances, by constructing a polyhedron from the measured points and the robot, and inscribing spheres in that polyhedron, as shown in image TODO.
+% However, if we get very long-distance measurements in some direction, such raycasting approach might need many iterations to fully fill the free space in distant areas.
+% Thus, even though raycasting might need tens of thousands of raycasts 
+\subsection{Obtaining Sparse Pointclouds from a Monocular Camera}
+A single map update takes as input 1) a 3D pointcloud corresponding to visual keypoints, potentially sparse, at metric scale, which can be obtained from monocular-inertial SLAM \cite{openvins, orbslam3}, or for example by fusing purely monocular SLAM with a global positioning system, and 2) a pose estimate of the UAV.
+% The proposed occupancy mapping pipeline takes as input 1) a sparse pointcloud, ideally with ids of individual points, so that when a visual keypoint is observed at two different positions in two different frames, we can move it in the map, instead of adding it to the map twice, but this is not required, and 2) a pose estimate of the UAV.
+% Both of these can be obtained by running visual-inertial SLAM \cite{orbslam3, openvins}, which is already a necessity when no global positioning system is available.
+In the experiments in this paper, we obtain the pointclouds and pose estimates from OpenVINS \cite{openvins}, using its mode of inverse depth estimation.
+
+% One great advantage of our method is that we can utilize points with very high distance uncertainty when using inverse-depth estimation in the visual SLAM.
+Our method works best when using inverse-depth parametrization \cite{inverse_depth} of point locations instead of estimating full 3D positions of visual keypoints in the SLAM.
+Utilizing the inverse-depth parametrization allows the UAV to know that there are points in nearly infinite distance in some direction.
+% We do not add such distant points to the map, but we can use them to estimate that up to some distance, there is likely free space in that direction, such as when a UAV sees a tree line in the distance, or flies towards a distant building.
+These points can be used to estimate that up to some distance, there is likely free space in that direction, such as when a UAV sees a tree line in the distance, or flies towards a distant building.
+There can be object that are too small to be detected by the visual SLAM at large distances, so the free-space estimates might be wrong, but we show how to deal with these issues in Sec. \ref{sec:distance-based}.
+
+Our method can, in principle, work with pointclouds from any source, even dense sensors such as depth cameras or LiDARs, and representing everything as elements in space allows storing information about e.g. some space looking as free according to camera data, but occupied according to a depth camera (such as in a window).
+However, we leave it for future work to fully utilize this potential for multimodality.
+
+% We however designed our method so that it works even if the robot pose is obtained from another source, such as when using GPS, so that occupancy mapping works even if odometry sources are switched -- 
+% which can be taken directly from visual or visual-inertial odometry, which is already a necessary module for robotic autonomy.
+
+\subsection{Map Updating}
+\label{sec:map_building}
+A single update iteration of the map can be broken down into these consecutive steps:
+% \subsubsection{Visible Free Space Polygon Construction}
+\subsubsection{Constructing the Visible Free Space Polyhedron}
+The first step is to construct a polygon of space that is estimated to be free in the current timestep.
+To interpolate depth between the sparse keypoints, we employ a simplified version of the approach described in FLAME \cite{flame}.
+There, the authors focus on constructing a precise mesh from visual keypoint measurements, but here, we care primarily about mapping the free space, for planning purposes, and thus we do not perform the mesh optimization or splitting the 2D interpolations that are done in \cite{flame}.
+
+We project the currently tracked \todo{triangulated points $X$} from visual SLAM into the image plane and compute their Delaunay triangulation. 
+By connecting the points in 3D according to their Delaunay triangulation in 2D, we obtain a mesh $F_o$ that we call an \textit{obstacle mesh}, which is used only for the current frame.
+We estimate the currently visible free space as the volume between the camera's focal point and all points on $F_o$.
+This space is enclosed by connecting all points that lie on the \todo{edge} of $F_o$ to the camera's focal point, which forms an \textit{estimated visible free space polyhedron} $P_f$, visualized in Fig.\ref{fig:smap_intro}.
+
+\subsubsection{Updating Existing Spheres}
+% Updating existing spheres and points is slightly more complex.
+% An old sphere might lie only partially in $F_t$, but that does not mean we should reduce its radius.
+% Thus, a sphere that intersects with $F_t$ or lies inside it has its radius updated to
+% Next, $P_f$ is used to attempt to increase the radii of spheres already in the map, and the visible 
+Next, we update the radii of spheres that could be updated by $P_f$ or $X$.
+To bound the update time of this step, we specify a maximum allowed sphere radius $r_{max}$, which allows us to quickly filter out all spheres whose centers fall outside a \todo{bounding box} around $P_f$, inflated by $r_{max}$. 
+Then, for any remaining sphere with a center $x$ and radius $r_{k}$, the updated radius is computed as
+\begin{equation}
+  r_{k+1} = \min \left( \max \left( r_{k}, d(x, P_f) \right)
+  , d(x, X \cup X_p), r_{max} \right),
+  \label{eq:update}
+\end{equation}
+where $d(x, P_f)$ is the signed distance to $P_f$ (positive if the point is inside the polyhedron, negative if outside) and $d(x,X \cup X_p)$ is the minimum distance to all input obstacle points $X$, and to obstacle points $X_p$ which lie in the map, fall into $P_f$, but are not deleted in the current frame, as described more in Sec. \ref{sec:distance-based}.
+Finally, we delete all spheres with $r_{k+1} < r_{min}$, where $r_{min}$ is the smallest allowed sphere radius specified by the user. 
+
+
+% where TODO.
+
+% We give priority to the information provided by the meshes from the current frame, and so if any point lies deep enough by some constant in the currently observed free space described by $F_t$, it is deleted from the map.
+
+
+% \subsubsection{Sparse Points to Freespace Mesh}
+% At each update iteration, we interpolate the visible input points with a mesh by projecting it to the camera's image plane, computing their Delaunay triangulation for estimating depth between the sparse points as in \cite{stereo2, flame}, and creating a temporary 3D mesh using the output of the Delaunay triangulation, as in FLAME \cite{flame}.
+% We name this mesh as the \textit{obstacle mesh} $F_o$, and we also construct a \textit{visibility mesh} $F_v$ from the camera's focal point and the outer edges of $F_o$.
+% Together, $F_o$ and $F_v$ form a \textit{bounding mesh} $F_t$, which is watertight and all these meshes are used for updating the map at each iteration, which is further divided into these parts:
+
+\subsubsection{Sampling New Spheres}
+To introduce new spheres into the map, we sample a fixed number of points inside $P_f$ at random distances between the camera and the obstacle mesh $F_o$.
+This is a simplistic approach, and could be improved for faster flight, for example by sampling along the predicted trajectory of the UAV at high speeds.
+A potential new sphere's radius is determined in the same way as for the old spheres in the previous step in Eq. \ref{eq:update} with $r_k = 0$.
+If the potential radius is larger than $r_{min}$, the sphere is added to the map.
+% However, as in \cite{spheremap}, we also perform a redundancy check for all potential spheres and add them only if they are not redundant (meaning that they would have a significant overlap with already existing spheres).
+% As in \cite{spheremap}, we also find nearby spheres and connect them if they intersect.
+% New obstacle points are added to the map simply if their inverse-depth covariance is low (or not provided) and they are further from other points in the map by some predefined minimal distance, which specifies the resulting map surface detail.
+
+\subsubsection{Recomputing and Sparsifying Sphere Graph}
+After all the sphere radii updates have been made, we update the graph of spheres used for path planning, so that all intersecting spheres are connected in the graph.
+% TODO - EXPLAIN???
+Furthermore, to constrain map update time and path planning time, we perform a redundancy check on the updated and added spheres in the same way as in our previous work \cite{spheremap}.
+If any sphere TODO, it is deleted from the map.
+This way, large open areas are covered by only a few spheres and can be planned over quickly, and tight corridors have a higher density of spheres, capturing the information about potential paths and distances to obstacles in more detail.
+\subsubsection{Updating Obstacle Points}
+\label{sec:distance-based}
+As the final step of the update, we decide which visible points $X$ to add into the map, and which points in the map to delete.
+An important part of our method is that we store the minimum of the distances that any point $x$ has been observed from, denoted further as $d_{m, x}$.
+This is due to the fact that the distance uncertainty of any point \todo{grows drastically} with the distance from camera in monocular SLAM \cite{inverse_depth}.
+
+An apparent problem can thus arise when viewing some surface from a much higher distance than before (e.g. observing a wall from 5 m, and then later from 50m).
+The newly visible points corresponding to the wall can have large position errors, as shown in Fig.\ref{fig:distbased}.
+We also cannot simply delete every map point that falls into $P_f$, because the UAV might be at a distance where the object corresponding to the point is just too far to be seen as a keypoint in the image.
+
+We solve both these problems by deleting any map point $x$ that falls into $P_f$ only if
+\begin{equation}
+  |x - p_{cam}| < 0.75 \cdot d_{m,x}
+\end{equation}
+where $p_{cam}$ is the position of the camera.
+% Thus, map points are only deleted if they are not seen from a clo
+Additionally, points \todo{seen from a closer distance can erase points seen at larger distances, if they fall close enough to them, and in the same way, new points seen at a large distance are not added to the map, if there are more accurately measured points near them, also visualized in Fig.\ref{fig:distbased}.}
+
+\begin{figure}[!t]
+  % \includegraphics[width=8.5cm]{fig/smap2.png}
+  \includegraphics[width=8.5cm]{fig/distbased3.pdf}
+  \centering
+  \caption{Diagram of sphere sampling and map point management: 
+  Visible free-space polygon (-);
+  Newly sampled spheres (O);
+  Triangulated keypoints visible at current frame (X); 
+  Points already in the map (X) added from a previous pose (red). 
+  Smaller points and higher-opacity spheres have been observed from lower distances.
+  % Point size and sphere opacity correspond to their lowest measurement distance.
+  % Point size and sphere opacity correspond to the lowest distance they were seen from.
+  Dashed crosses correspond to points that will be deleted (red) or not added to the map (black).
+  }
+  \label{fig:distbased}
+\end{figure}
+
+% TODO - ???
+
+% \section{Monocular Visual Keypoint Inverse-Depth Estimation with Noisy Odometry}
+
+% \begin{figure}[!htb]
+%   % \includegraphics[width=8.5cm]{fig/fire.png}
+%     \adjincludegraphics[width=8.5cm, trim={{0.4\width} {0.2\height} {0.1\width} {0.1\height}}, clip=true]{fig/fire.png}
+%   \centering
+%   \caption{TEMPORARY IMG - Illustration of the function of the tracking and depth estimation module - TODO}
+%   \label{fig:fire}
+% \end{figure}
+
+% Ideally, the input of our occupancy mapping method can be the triangulated visual keypoints from some visual-inertial SLAM.
+% Unfortunately, to obtain those, one would need to make modifications into the implementation for any SLAM currently deployed.
+% In addition, when for example switching from visual to GNSS-based odometry in outdoor environments, the points from SLAM would become unavailable.
+
+% For these reasons, we also present a new module that tracks visual keypoints and estimates their inverse depth, using only monocular camera data and \textit{any} form of odometry, even with noise.
+% Our method is heavily inspired by FLAME \cite{flame}, as in our method we also estimate the inverse-depth of visually tracked keypoints, and then interpolate the depth between them using Delaunay triangulation in the same way, but our method makes significant improvements for the sake of robustness to odometry errors.
+
+% First, FLAME is a keyframeless method, and updates at a fixed rate.
+% However, when the UAV is stationary, this causes the inverse depth estimates to drift and become unusable.
+% Thus, our method only updates the keyframes' inverse depth estimates when enough translational motion has been made, according to the odometry.
+% Because we are also not trying to estimate a precise mesh, we do not perform the variational mesh smoothing as in FLAME, thus freeing up computational resources.
+
+% Second, FLAME takes the metric scale from the poses of the two consecutive images, but under noisy odometry, this can cause significant problems.
+% Our approach instead does very simple purely visual SLAM over several keyframes, by simply aggregating the pose estimates between individual keyframes (as long as some keypoints are tracked and triangulated), thus providing an unscaled robocentric trajectory estimate.
+% This trajectory of $N$ keyframes is then scaled so that the distance of the first and last tracked keyframe is the same as the odometry distance between the keyframes, as shown in TODO-FIG.
+% % TODO - explain better
+% This way, even if the odometry is locally noisy or imprecise, the scale estimate can be more robust over larger distances.
+% The inverse depth estimates are added to the points using this scale.
+
+% \section{Monocular-Inertial Exploration Using the Sphere-Based Occupancy Map}
+% \section{Exploration Using the Sphere-Based Occupancy Map and Inverse-Depth Estimator}
+\section{Safety-Aware Monocular-Inertial 3D Exploration System}
+In this section, we detail how our proposed occupancy mapping method and representation are highly suitable for autonomous path planning and exploration, and how volumetric exploration can be achieved, even with only a single camera.
+In principle, we employ the commonly used receding-horizon next-best-view (RHNBV) [TODO-CITE] strategy, but with several major differences in methodology that are neccessary in the case of a robot with a monocular camera for depth sensing in large-scale, real-world environments.
+
+In traditional exploration approaches with dense distance sensors, it is often sufficient to move the robot to a boundary between free space and unknown space (known as a frontier), and assume that the distance sensors will uncover some additional space behind the frontier and thus expand the map.
+
+Such approach will not, in principle, work well with a robot that only has a monocular camera for depth sensing.
+The first thing that needs to be considered is that such a robot requires \textit{translational} motion to gain any sort of depth measurements when using methods built on structure-from-motion (SfM) [TODO-CITE], which is most of visual SLAM algorithms.
+% as in monocular structure-from-motion (SfM) TODO-CITE (we do not consider deep learning methods which exploit knowledge about sizes of objects).
+% Excessive rotation without translation cannot lead to reasonable distance estimates.
+% Too much rotation with too little translation of the camera will cause the monocular SLAM or any SfM-based approach to not give reliable depth estimates.
+With rotation only, or motions that have too much rotation compared to translation, reliable depth estimates cannot be obtained.
+
+This motivates the first major distinction of our approach compared to traditional RHNBV --- when planning a path to a goal viewpoint that could uncover some frontiers, we compute the target headings on the path so that the UAV maintains a fixed heading for at least $d_{c}$ meters on the path before reaching the end viewpoint, as visualized in Fig. TODO-FIG.
+In the experiments detailed in Sec. \autoref{sec:experiments}, we set $d_{c}=TODO$.
+This way, the UAV has enough translational motion before reaching a given viewpoint, so that if there are visible visual keypoints from that viewpoint, it will most likely gain enough distance measurements to them so they can be used for the depth estimation described in Sec. \autoref{sec:map_building}.
+
+This is an important part of the method also due to the second major distinction -- we block the sampling of new exploration viewpoints near explored viewpoints.
+This is due to the fact that real-world environments often contain textureless areas (mainly in buildings or other man-made structures).
+Because in our mapping approach, obstacle points correspond to triangulated visual keypoints, no points will be added on textureless surfaces, but they will be on the boundary of free-space, so there will be frontiers there.
+However, such frontiers are uncoverable, since there is nothing behind them, and for this reason, we block the sampling of viewpoints near visited ones, so that the UAV doesn't keep coming back to look at a blank wall.
+
+Thirdly, because our map representation is fundamentally different from an occupancy grid, we compute the frontiers in a different way than with an occupancy grid --- we sample points along the visible free-space polyhedron described in Sec. \autoref{sec:map_building} at each map update, and add the points as frontiers, if they do not lie inside any free-space sphere and if they are at some user-defined distance from all map obstacle points.
+If they do not meet these criteria in any following update, they are deleted. 
+
+% Lastly, most exploration approaches for UAVs deal with indoor environments or work in 2D, and they usually treat all frontiers as equal.
+% In 3D outdoor exploration, where there is no ceiling and where it can be easier to move to featureless areas, we constrain the exploration to only consider frontiers that lie near some obstacle points.
+% Lastly, most exploration approaches for UAVs deal with indoor environments or work in 2D, and they usually treat all frontiers as equal.
+In 3D outdoor exploration, it is also important to assign different value to different frontiers. 
+We constrain the exploration to only consider frontiers that lie near some obstacle points.
+Thus, the UAV does not explore up into the sky, and explores near texture-rich areas, leading to fewer possible failure situations due to losing visual odometry tracking.
+We then add new exploration viewpoints into the map only if a sufficient number of such frontier points would be visible from a given viewpoint.
+
+To allow exploration even in large-scale environments, we employ a local-global approach, basically a simplified version of TODO-REF.
+The UAV first tries finding paths to any exploration viewpoints up to a user-defined "local exploration radius".
+If no reachable viewpoints are found in the radius, the UAV tries finding paths to all exploration viewpoints stored in the map.
+Thanks to the planning efficiency of the sphere graph, this global replanning usually does not take more than a few seconds, but could be made even faster by implementing any sort of long-distance planning abstraction graph, as in TODO or TODO-REF-OWN, which we leave for future work.
+
+% Lastly, using the sphere-based representation allows us to flexibly weigh path length and path proximity to obstacles. We use the same path cost criterion as in \cite{spheremap}, and thus we can 
+% Lastly, because the free space is represented by a graph of spheres, we immediately have an upper bound on the distance of obstacles at each graph node, and thus it is possible to efficiently weigh path length versus path proximity to obstacles, 
+
+With all of these considerations, a UAV with only a monocular camera and IMU can perform 3D volumetric exploration in large-scale outdoor environments, as we show in Sec. \autoref{sec:experiments}.
+\todo{
+It would be interesting to compare our method to monocular exploration using an occupancy grid at a similar scale, but, to the best of our knowledge, this has not yet been documented in literature.
+Thus, we can only talk about the benefits of our proposed representation --- which is that it allows much more efficient path planning that takes into account the distance to obstacles than using an occupancy grid, as we discuss more in \cite{spheremap}.
+}
+As future work, we also propose to utilize the measurement distance of free-space spheres so that path planning can, for example, force the UAV to fly slower and always forward-facing in spheres that have been observed from a large distance and might contain some obstacles not observable from far away.
+% TODO - rewrite something something with potential!
+
+% Our approach runs in 3 main threads --- mapping, navigation and exploration logic.
+% Navigation takes in a guiding path towards a goal  
+% The last distinction we make is 
+% More importantly, 
+
+% This approach avoids situations where the UAV would reach the goal viewpoint by rotating to it, 
+
+% In our approach, adapt the simple receding-horizon next-best-view frontier-based exploration.
+% In other words, we search for reachable viewpoints, which should uncover some frontiers (updated continually in the occupancy mapping), assign values to them according to the length and safety (computed as in \cite{spheremap}) of the path leading to them, and then choose the best one.
+
+% This is a fairly standard approach, with several important changes for monocular systems in outdoor environments.
+% First, for depth sensors, it is enough to point the robot's sensors in the direction of the frontier, and it will usually uncover some free space.
+% The case of a frontier not being uncovered -- due to e.g. nonreflective or distant surfaces -- is usually neglected in exploration approaches. 
+% However, when we use visual keypoints as input for the depth estimation, such a situation can occur quite often, for example when trying to uncover textureless walls.
+
+% For this reason, we keep a history of the number of times a frontier was "observed", by which we mean that the robot has chosen to view it and went to the corresponding viewpoint.
+% We then simply discard any frontiers that have been viewed more than 2 times from any future selection, as shown in TODO-FIG.
+
+% Second, triangulating points requires the robot to move, so we cannot simply point the robot's camera in the direction of the frontiers.
+% We solve this by adding a short, several meter translation-only trajectory upon reaching any viewpoint, so that any potential points in the direction of the frontiers are triangulated and it can be uncovered.
+
+% Thanks to using a sphere-based representation, we can find paths not only according to  TODO-PRAISE-SPHERES.
+
+\section{Experiments}
+\label{sec:experiments}
+% \subsection{Effect of Distant Points on Map Quality}
+\subsection{Large-Scale Exploration in Simulation}
+In this experiment, we demonstrate that the method is reliable, by running several experiments in the environment shown in TODO-FIG and noting the exploration results and failure cases.
+
+TODO - RUN, EVALUATE, ADD TABLE AND IMGS
+
+TODO - RUNTIME ANALYSIS NOTE
+% In this experiment, we demonstrate the performance of the proposed occupancy mapping while using distant points with high depth covariance, against using closer-range points, which are usually available from most visual SLAM algorithms.
+% As you can see in TODO, by using the distant points, the UAV is able to quickly construct an estimate of 
+
+\begin{figure}[!htb]
+  \includegraphics[width=8.5cm]{fig/sim_exper_gazebo.png}
+  \includegraphics[width=8.5cm]{fig/sim_exper_end.png}
+  % \includegraphics[width=8.5cm]{fig/exper3.png}
+  % \includegraphics[width=8.5cm]{fig/exper4.png}
+  \centering
+  % \caption{TEMPORARY IMG - Exploration experiment visualization}
+  \caption{The resulting map (bottom) after 20min of exploring an urban environment (top) in simulation, explained in more detail in TODO-REF. Black arrows indicate visited frontier viewpoints, frontiers are shown as purple points. Notice that the UAV also went to explore up on the rooftops, where it could see the metal towers.}
+  \label{fig:exper_sim}
+\end{figure}
+
+\subsection{Real-World UAV Monocular-Inertial Exploration}
+In this experiment we demonstrate that the proposed method of occupancy mapping using only a single monocular RGB camera and IMU is useful for path and exploration planning on a real-world UAV platform in a mixed indoor-outdoor warehouse setting.
+
+The UAV is TODO-HARDWARE \cite{mrs_uav_robust_system}.
+
+The UAV is running OpenVINS \cite{openvins} for odometry estimation, and our proposed inverse depth etstimator and occupancy mapper modules.
+For demonstration purposes, we developed next-best-view frontier-based exploration using our proposed occupancy representation.
+The exploration module simply samples potential reachable viewpoints by RRT in its nearby space at a fixed rate and stores those.
+Upon reaching a viewpoint, the UAV selects a new one, by a combination of distance, path safety (same as in our previous work TODO-CITE), and the amount of visible frontiers.
+We also take into account only frontier points that lie close to some obstacle points -- essentially points that lie close to some surfaces, so the UAV doesn't fly off exploring into the sky.
+Additionally, we only allow path planning where some map points would be visible, as discussed in TODO-REF, to not lose visual odometry tracking.
+
+As can be seen from TODO-REF, and multimedia materials supporting the experiment, the occupancy representation is quite suited for such a task of vision-based autonomy.
+The UAV explored TODO.
+It is currently not possible to compare TODO.
+% \subsection{Comparison }
+% \subsection{Runtime Analysis}
+% Here we analyze the efficiency of the individual parts of the occupancy mapping, method and show thaa
+
+\begin{figure}[!htb]
+  \includegraphics[width=8.5cm]{fig/exper1.png}
+  \includegraphics[width=8.5cm]{fig/exper4.png}
+  % \includegraphics[width=8.5cm]{fig/exper3.png}
+  % \includegraphics[width=8.5cm]{fig/exper4.png}
+  \centering
+  \caption{TEMPORARY IMG - Exploration experiment visualization}
+  \label{fig:exper_real}
+\end{figure}
+
+\subsection{Runtime analysis}
+Here we analyze the runtimes of this method, and TODO.
+
+\begin{figure}[!htb]
+  % \includegraphics[width=8.5cm]{}
+  \adjincludegraphics[width=9cm, trim={{0.05\width} {0.00\height} {0.05\width} {0.00\height}}, clip=true]{fig/smap_runtimes_tmp.pdf}
+  \centering
+  \caption{Runtime analysis of parts of the map update detailed in \autoref{sec:map_building}.}
+  \label{fig:runtimes}
+\end{figure}
+
+
+
+\section{CONCLUSION}
+In this paper, we presented a novel sphere-based occupancy mapping method 
+% together with a robust monocular inverse-depth estimator,
+using sparse point cloud data from monocular visual sensors,
+and demonstrated how it can enable any UAV equipped with a single camera and any form of odometry to quickly and safely navigate and explore unknown, unstructured 3D environments.
+We have demonstrated, through testing in simulation and in the real world, that our new occupancy mapping approach enables safe, large-scale autonomous navigation and exploration on UAVs without traditionally used expensive range sensors.
+
+% \section{CONCLUSIONS}
+
+% A conclusion section is not required. Although a conclusion may review the main points of the paper, do not replicate the abstract as the conclusion. A conclusion might elaborate on the importance of the work or suggest applications and extensions. 
+
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+                                  % on the last page of the document manually. It shortens
+                                  % the textheight of the last page by a suitable amount.
+                                  % This command does not take effect until the next page
+                                  % so it should come on the page before the last. Make
+                                  % sure that you do not shorten the textheight too much.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section*{APPENDIX}
+
+% Appendixes should appear before the acknowledgment.
+
+% \section*{ACKNOWLEDGMENT}
+
+% The preferred spelling of the word ÒacknowledgmentÓ in America is without an ÒeÓ after the ÒgÓ. Avoid the stilted expression, ÒOne of us (R. B. G.) thanks . . .Ó  Instead, try ÒR. B. G. thanksÓ. Put sponsor acknowledgments in the unnumbered footnote on the first page.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% References are important to the reader; therefore, each citation must be complete and correct. If at all possible, references should be commonly available publications.
+
+
+%%%{ BIBLIOGRAPHY
+% \balance
+\bibliographystyle{IEEEtran}
+% DO NOT ERASE THE NEXT LINE,
+% ONLY COMMENT IT AND DECOMMENT THE NEXT-NEXT, IF YOU NEED
+% if you need it, get the repo git://redmine.laas.fr/laas/users/afranchi/bib.git and configure your bibinput in order to have : bibAlias,bibMain,bibNew,bibAF
+\bibliography{main.bib}
+%%%}
+
+
+% \begin{thebibliography}{99}
+
+% \bibitem{c1} G. O. Young, ÒSynthetic structure of industrial plastics (Book style with paper title and editor),Ó 	in Plastics, 2nd ed. vol. 3, J. Peters, Ed.  New York: McGraw-Hill, 1964, pp. 15Ð64.
+% \bibitem{c2} W.-K. Chen, Linear Networks and Systems (Book style).	Belmont, CA: Wadsworth, 1993, pp. 123Ð135.
+% \bibitem{c3} H. Poor, An Introduction to Signal Detection and Estimation.   New York: Springer-Verlag, 1985, ch. 4.
+% \bibitem{c4} B. Smith, ÒAn approach to graphs of linear forms (Unpublished work style),Ó unpublished.
+% \bibitem{c5} E. H. Miller, ÒA note on reflector arrays (Periodical styleÑAccepted for publication),Ó IEEE Trans. Antennas Propagat., to be publised.
+% \bibitem{c6} J. Wang, ÒFundamentals of erbium-doped fiber amplifiers arrays (Periodical styleÑSubmitted for publication),Ó IEEE J. Quantum Electron., submitted for publication.
+% \bibitem{c7} C. J. Kaufman, Rocky Mountain Research Lab., Boulder, CO, private communication, May 1995.
+% \bibitem{c8} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ÒElectron spectroscopy studies on magneto-optical media and plastic substrate interfaces(Translation Journals style),Ó IEEE Transl. J. Magn.Jpn., vol. 2, Aug. 1987, pp. 740Ð741 [Dig. 9th Annu. Conf. Magnetics Japan, 1982, p. 301].
+% \bibitem{c9} M. Young, The Techincal Writers Handbook.  Mill Valley, CA: University Science, 1989.
+% \bibitem{c10} J. U. Duncombe, ÒInfrared navigationÑPart I: An assessment of feasibility (Periodical style),Ó IEEE Trans. Electron Devices, vol. ED-11, pp. 34Ð39, Jan. 1959.
+% \bibitem{c11} S. Chen, B. Mulgrew, and P. M. Grant, ÒA clustering technique for digital communications channel equalization using radial basis function networks,Ó IEEE Trans. Neural Networks, vol. 4, pp. 570Ð578, July 1993.
+% \bibitem{c12} R. W. Lucky, ÒAutomatic equalization for digital communication,Ó Bell Syst. Tech. J., vol. 44, no. 4, pp. 547Ð588, Apr. 1965.
+% \bibitem{c13} S. P. Bingulac, ÒOn the compatibility of adaptive controllers (Published Conference Proceedings style),Ó in Proc. 4th Annu. Allerton Conf. Circuits and Systems Theory, New York, 1994, pp. 8Ð16.
+% \bibitem{c14} G. R. Faulhaber, ÒDesign of service systems with priority reservation,Ó in Conf. Rec. 1995 IEEE Int. Conf. Communications, pp. 3Ð8.
+% \bibitem{c15} W. D. Doyle, ÒMagnetization reversal in films with biaxial anisotropy,Ó in 1987 Proc. INTERMAG Conf., pp. 2.2-1Ð2.2-6.
+% \bibitem{c16} G. W. Juette and L. E. Zeffanella, ÒRadio noise currents n short sections on bundle conductors (Presented Conference Paper style),Ó presented at the IEEE Summer power Meeting, Dallas, TX, June 22Ð27, 1990, Paper 90 SM 690-0 PWRS.
+% \bibitem{c17} J. G. Kreifeldt, ÒAn analysis of surface-detected EMG as an amplitude-modulated noise,Ó presented at the 1989 Int. Conf. Medicine and Biological Engineering, Chicago, IL.
+% \bibitem{c18} J. Williams, ÒNarrow-band analyzer (Thesis or Dissertation style),Ó Ph.D. dissertation, Dept. Elect. Eng., Harvard Univ., Cambridge, MA, 1993. 
+% \bibitem{c19} N. Kawasaki, ÒParametric study of thermal and chemical nonequilibrium nozzle flow,Ó M.S. thesis, Dept. Electron. Eng., Osaka Univ., Osaka, Japan, 1993.
+% \bibitem{c20} J. P. Wilkinson, ÒNonlinear resonant circuit devices (Patent style),Ó U.S. Patent 3 624 12, July 16, 1990. 
+
+
+
+
+
+
+% \end{thebibliography}
+
+
+
+
+\end{document}
